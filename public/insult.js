@@ -1,14 +1,14 @@
 document
-  .querySelector(".request-compliment")
+  .querySelector(".request-insult")
   .addEventListener("click", function() {
-    fetch("/api/compliment")
+    fetch("/api/insult")
       .then(function(res) {
         return res.json();
       })
       .then(function(data) {
-        document.querySelector(".compliment").innerText = data.compliment;
+        document.querySelector(".insult").innerText = data.insult;
       })
       .catch(function(err) {
-        console.error(err);
+        console.log(err);
       });
   });

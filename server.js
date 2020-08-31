@@ -1,33 +1,28 @@
 const express = require("express");
 const path = require("path");
 
-const compliments = [
-    "You like nice today",
-    "That dress looks nice on you",
-    "Have you been working out?",
-    "You can do hard things",
-    "You've gotten far in this course. You're really smart",
-    "You're programming! How cool is that?",
-    "I'm really proud of you",
-    "You made this",
-    "You've learned a lot of things, and that's pretty hard to do"
-];
-
-function getRandomCompliment() {
-    const randomIndex = Math.floor(Math.random() * compliments.length);
-    return compliments[randomIndex];
-}
+const getCompliment = require("./api/compliments");
+const getInsult = require("./api/insults");
 
 const app = express();
 
 app.get("/", function(req, res) {
+  console.log("GET: '/'");
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.get("/compliment", function(req, res) {
+app.get("/api/compliment", function(req, res) {
+  console.log("GET: '/api/compliment'");
   res.json({
-      compliment: getRandomCompliment()
+      compliment: getCompliment()
     }).end();
+});
+
+app.get("/api/insult", function(req, res) {
+  console.log("GET: '/api/insult'");
+  res.json({
+    insult: getInsult()
+  }).end();
 });
 
 app.use("/public", express.static("./public"));
